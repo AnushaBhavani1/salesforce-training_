@@ -1,0 +1,506 @@
+/*====================================================
+        PLACEMENT MANAGEMENT PORTAL
+====================================================*/
+
+:host{
+    display:block;
+    background:#f3f6fb;
+    min-height:100vh;
+    padding:20px;
+    font-family:"Segoe UI",Tahoma,Geneva,Verdana,sans-serif;
+}
+
+/*====================================================
+                    CONTAINER
+====================================================*/
+
+.container{
+    max-width:1400px;
+    margin:auto;
+}
+
+/*====================================================
+                    HEADER
+====================================================*/
+
+.header{
+
+    display:flex;
+
+    align-items:center;
+
+    background:linear-gradient(90deg,#0176d3,#0b5cab);
+
+    color:white;
+
+    padding:20px;
+
+    border-radius:12px;
+
+    box-shadow:0 6px 15px rgba(0,0,0,.15);
+
+    margin-bottom:25px;
+
+}
+
+.header:hover{
+
+    transform:translateY(-2px);
+
+    transition:.3s;
+
+}
+
+.logo{
+
+    width:70px;
+
+    height:70px;
+
+    background:white;
+
+    padding:8px;
+
+    border-radius:10px;
+
+    margin-right:20px;
+
+    box-shadow:0 3px 8px rgba(0,0,0,.2);
+
+}
+
+.header h1{
+
+    font-size:30px;
+
+    font-weight:bold;
+
+    margin:0;
+
+}
+
+.header p{
+
+    margin-top:6px;
+
+    font-size:15px;
+
+    opacity:.95;
+
+}
+
+/*====================================================
+                DATE & WELCOME
+====================================================*/
+
+.topInfo{
+
+    margin:20px 0;
+
+    color:#444;
+
+    font-size:16px;
+
+    font-weight:600;
+
+}
+
+.topInfo p{
+
+    margin:8px 0;
+
+}
+
+/*====================================================
+                DASHBOARD TITLE
+====================================================*/
+
+.dashboard-title{
+
+    text-align:center;
+
+    font-size:30px;
+
+    color:#0176d3;
+
+    font-weight:bold;
+
+    margin:30px 0;
+
+}
+
+/*====================================================
+                DASHBOARD CARDS
+====================================================*/
+
+.dashboardCard{
+
+    background:white;
+
+    border-radius:15px;
+
+    text-align:center;
+
+    padding:25px;
+
+    box-shadow:0 8px 20px rgba(0,0,0,.12);
+
+    transition:.3s;
+
+    cursor:pointer;
+
+    height:180px;
+
+}
+
+.dashboardCard:hover{
+
+    transform:translateY(-8px);
+
+    box-shadow:0 15px 30px rgba(0,0,0,.18);
+
+}
+
+.dashboardCard lightning-icon{
+
+    margin-bottom:15px;
+
+}
+
+.dashboardCard h3{
+
+    margin:10px 0;
+
+    color:#666;
+
+    font-size:18px;
+
+    font-weight:600;
+
+}
+
+.dashboardCard h1{
+
+    margin-top:12px;
+
+    color:#0176d3;
+
+    font-size:42px;
+
+    font-weight:bold;
+
+}
+
+/* Different Colored Top Borders */
+
+.students{
+
+    border-top:6px solid #00b8a9;
+
+}
+
+.companies{
+
+    border-top:6px solid #5867dd;
+
+}
+
+.jobs{
+
+    border-top:6px solid #ff5c8d;
+
+}
+
+.applications{
+
+    border-top:6px solid #2db84d;
+
+}
+
+/*====================================================
+            STUDENT INFORMATION
+====================================================*/
+
+.studentCard{
+
+    margin-top:30px;
+
+    background:white;
+
+    border-radius:15px;
+
+    padding:25px;
+
+    box-shadow:0 8px 18px rgba(0,0,0,.10);
+
+}
+
+.studentCard h2{
+
+    color:#0176d3;
+
+    margin-bottom:20px;
+
+}
+
+.studentCard p{
+
+    font-size:16px;
+
+    margin:10px 0;
+
+}
+
+.studentCard b{
+
+    color:#222;
+
+}
+
+/*====================================================
+                BUTTONS
+====================================================*/
+
+.button-section{
+
+    margin-top:30px;
+
+    text-align:left;
+
+}
+
+lightning-button{
+
+    margin-right:12px;
+
+}
+
+/*====================================================
+                MESSAGE
+====================================================*/
+
+.message{
+
+    margin-top:20px;
+
+    display:inline-block;
+
+    background:#e6f7ff;
+
+    color:#0176d3;
+
+    padding:14px 20px;
+
+    border-radius:10px;
+
+    font-weight:bold;
+
+    box-shadow:0 3px 10px rgba(0,0,0,.08);
+
+}
+
+/*====================================================
+                STATUS
+====================================================*/
+
+.status{
+
+    margin-top:15px;
+
+    font-size:18px;
+
+    font-weight:bold;
+
+    color:#2e844a;
+
+}
+
+/*====================================================
+                FOOTER
+====================================================*/
+
+.footer{
+
+    margin-top:35px;
+
+    border-top:1px solid #ddd;
+
+    padding-top:20px;
+
+    text-align:center;
+
+    color:#666;
+
+    font-size:14px;
+
+}
+
+/*====================================================
+                ANIMATIONS
+====================================================*/
+
+.header,
+.dashboardCard,
+.studentCard{
+
+    animation:fadeUp .6s ease;
+
+}
+
+@keyframes fadeUp{
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(25px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:translateY(0);
+
+    }
+
+}
+
+/*====================================================
+                RESPONSIVE
+====================================================*/
+
+@media(max-width:1024px){
+
+.header{
+
+flex-direction:column;
+
+text-align:center;
+
+}
+
+.logo{
+
+margin-right:0;
+
+margin-bottom:15px;
+
+}
+
+.dashboardCard{
+
+height:160px;
+
+}
+
+.dashboardCard h1{
+
+font-size:34px;
+
+}
+
+}
+
+@media(max-width:768px){
+
+:host{
+
+padding:10px;
+
+}
+
+.header{
+
+padding:18px;
+
+}
+
+.header h1{
+
+font-size:24px;
+
+}
+
+.header p{
+
+font-size:14px;
+
+}
+
+.logo{
+
+width:60px;
+
+height:60px;
+
+}
+
+.dashboardCard{
+
+height:150px;
+
+padding:18px;
+
+}
+
+.dashboardCard h1{
+
+font-size:28px;
+
+}
+
+.studentCard{
+
+padding:18px;
+
+}
+
+}
+
+@media(max-width:480px){
+
+.header h1{
+
+font-size:20px;
+
+}
+
+.dashboardCard{
+
+height:140px;
+
+}
+
+.dashboardCard h3{
+
+font-size:15px;
+
+}
+
+.dashboardCard h1{
+
+font-size:24px;
+
+}
+
+.topInfo{
+
+font-size:14px;
+
+}
+
+.studentCard p{
+
+font-size:14px;
+
+}
+
+.footer{
+
+font-size:12px;
+
+}
+
+}

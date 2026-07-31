@@ -1,0 +1,193 @@
+<template>
+
+    <div class="container">
+
+        <!-- ================= HEADER ================= -->
+
+        <div class="header">
+
+            <div class="header-left">
+
+                <img
+                    src={logoUrl}
+                    alt="Vishnu Logo"
+                    class="logo"/>
+
+            </div>
+
+            <div class="header-right">
+
+                <h1>Vishnu Placement Management Portal</h1>
+
+                <p>
+                    Empowering Students for Successful Careers
+                </p>
+
+            </div>
+
+        </div>
+
+        <!-- ================= WELCOME ================= -->
+
+        <div class="top-section">
+
+            <p class="date">
+                📅 Today's Date : 31 July 2026
+            </p>
+
+            <p class="welcome-text">
+                👤 Welcome : {studentName}
+            </p>
+
+        </div>
+
+        <!-- ================= DASHBOARD ================= -->
+
+        <div class="dashboard">
+
+            <!-- Students -->
+
+            <div class="stats-card">
+
+                <lightning-icon
+                    icon-name="standard:people"
+                    size="medium">
+                </lightning-icon>
+
+                <h3>Students</h3>
+
+                <div class="number">
+                    1500
+                </div>
+
+            </div>
+
+            <!-- Companies -->
+
+            <div class="stats-card">
+
+                <lightning-icon
+                    icon-name="standard:account"
+                    size="medium">
+                </lightning-icon>
+
+                <h3>Companies</h3>
+
+                <div class="number">
+                    25
+                </div>
+
+            </div>
+
+            <!-- Jobs -->
+
+            <div class="stats-card">
+
+                <lightning-icon
+                    icon-name="standard:job_position"
+                    size="medium">
+                </lightning-icon>
+
+                <h3>Jobs</h3>
+
+                <div class="number">
+                    63
+                </div>
+
+            </div>
+
+            <!-- Applications -->
+
+            <div class="stats-card">
+
+                <lightning-icon
+                    icon-name="standard:file"
+                    size="medium">
+                </lightning-icon>
+
+                <h3>Applications</h3>
+
+                <div class="number">
+                    5
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- ================= STUDENT INFORMATION ================= -->
+
+        <div class="info-box">
+
+            <h2>Student Information</h2>
+
+            <div class="student-details">
+
+                <p>
+                    <strong>Name :</strong>
+                    {studentName}
+                </p>
+
+                <p>
+                    <strong>Roll Number :</strong>
+                    {rollNumber}
+                </p>
+
+                <p>
+                    <strong>Department :</strong>
+                    {department}
+                </p>
+
+            </div>
+
+            <div class="button-section">
+
+                <lightning-button
+                    label="Show Welcome Message"
+                    variant="brand"
+                    onclick={showMessage}>
+                </lightning-button>
+
+                <lightning-button
+                    label="Apply Now"
+                    variant="success"
+                    class="slds-m-left_small"
+                    onclick={apply}>
+                </lightning-button>
+
+            </div>
+
+            <template lwc:if={message}>
+
+                <div class="message-box">
+
+                    {message}
+
+                </div>
+
+            </template>
+
+            <div class="status-box">
+
+                Status :
+                <strong>{status}</strong>
+
+            </div>
+
+        </div>
+
+        <!-- ================= FOOTER ================= -->
+
+        <div class="footer">
+
+            © 2026 Vishnu Institute of Technology
+
+            <br/>
+
+            Placement Management System
+
+        </div>
+
+    </div>
+
+</template>
