@@ -238,5 +238,3 @@ This demonstrates **one-way reactive data binding** in Lightning Web Components.
 
 ---
 
-
-]
