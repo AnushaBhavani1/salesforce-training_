@@ -174,3 +174,10 @@ Successfully implemented the business logic for student job applications using A
 - Service Class Design
 
 The Placement Management System can now process applications intelligently by validating eligibility, preventing duplicates, and saving valid records.
+
+## Output
+<img width="960" height="1020" alt="image" src="https://github.com/user-attachments/assets/edcaddbf-ce50-459b-aae3-6006df7d2440" />
+<img width="1920" height="1020" alt="Screenshot 2026-08-04 104514" src="https://github.com/user-attachments/assets/98a9f846-7fae-4d3f-83a5-21f4a841374e" />
+
+
+
