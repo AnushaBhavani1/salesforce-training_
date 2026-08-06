@@ -1,219 +1,115 @@
-# Sprint 8 – Asynchronous Apex
-## Placement Management System
+# Chapter 8 – Asynchronous Apex
 
 ## Objective
 
-The objective of this sprint was to understand and implement Asynchronous Apex in Salesforce. The system performs background processing without making users wait for long-running operations.
+Implemented Asynchronous Apex concepts in the Placement Management System to perform background processing efficiently using Queueable Apex, Batch Apex, and Scheduled Apex while following Salesforce best practices.
 
 ---
 
-# Features Implemented
-
-## 1. Future Method
-
-Implemented a Future Method in `NotificationService` to process notification logic asynchronously.
-
-```apex
-@future
-public static void sendSelectionNotification(Id applicationId) {
-    System.debug('Notification sent for Application: ' + applicationId);
-}
-```
-
-Purpose:
-- Executes notification processing in the background.
-- Prevents the user from waiting after an application is updated.
-- Demonstrates asynchronous execution.
-
----
-
-## 2. Trigger Enhancement
-
-The `ApplicationTrigger` was updated to handle status changes after an Application record is updated.
-
-Workflow:
-
-Application Updated
-↓
-Trigger Fires
-↓
-ApplicationTriggerHandler
-↓
-ApplicationService
-↓
-Future Method
-
----
-
-## 3. Detect Status Change
-
-The system compares:
-
-- Trigger.new
-- Trigger.oldMap
-
-to identify when an application's status changes from:
-
-Applied
-↓
-
-Selected
-
-Only then is the Future Method executed.
-
----
-
-## 4. Statistics Service
-
-A separate service class was created.
-
-Class:
-- StatisticsService
-
-Method:
-
-```apex
-updatePlacementStatistics()
-```
-
-Purpose:
-
-- Simulates placement analytics update.
-- Demonstrates separation of business logic into service classes.
-
----
-
-## 5. Bulk-Safe Design
-
-The implementation follows Salesforce Bulkification best practices.
-
-Implemented:
-
-- Trigger.new
-- Trigger.oldMap
-- Set<Id>
-- Map<Id, SObject>
-- Bulk SOQL
-- Bulk-safe processing
-- No SOQL inside loops
-- No DML inside loops
-
----
-
-# Project Architecture
-
-ApplicationTrigger
-
-↓
-
-ApplicationTriggerHandler
-
-↓
-
-ApplicationService
-
-↓
-
-NotificationService (@future)
-
-↓
-
-StatisticsService
-
----
-
-# Testing Performed
-
-Scenario 1
-
-Application Status:
-
-Applied
-
-↓
-
-Selected
-
-Expected Result:
-
-- Trigger executes
-- Status change detected
-- Statistics updated
-- Future Method executed
-
-Result:
-
-PASS
-
----
-
-Scenario 2
-
-Application status remains unchanged.
-
-Expected Result:
-
-No asynchronous processing should occur.
-
-Result:
-
-PASS
-
----
-
-Scenario 3
-
-Multiple applications updated together.
-
-Expected Result:
-
-Bulk-safe execution without governor limit issues.
-
-Result:
-
-PASS
-
----
-
-# Debug Log Verification
-
-Verified:
-
-- Validation Rules executed successfully.
-- Trigger fired.
-- Handler executed.
-- ApplicationService executed.
-- Status changed from Applied to Selected.
-- StatisticsService executed.
-- Future Method executed successfully.
-
----
-
-# Concepts Learned
-
-- Synchronous Processing
-- Asynchronous Processing
-- Future Methods
-- Trigger.new
-- Trigger.oldMap
-- Bulk-safe Trigger Design
+## Features Implemented
+
+- Queueable Apex
+- Batch Apex
+- Scheduled Apex
 - Trigger Handler Pattern
 - Service Layer Architecture
-- Governor Limits
-- Separation of Business Logic
+- Bulk-Safe Processing
+- Notification Service
+- Placement Statistics Service
 
 ---
 
-# Files Created
+## Classes
 
-ApplicationTrigger
+- ApplicationService.cls
+- ApplicationTriggerHandler.cls
+- NotificationService.cls
+- OfferProcessingJob.cls
+- PlacementBatch.cls
+- PlacementScheduler.cls
+- StatisticsService.cls
+
+---
+
+## Queueable Apex Flow
+
+Application Status Updated
+
+↓
+
+Application Trigger
+
+↓
 
 ApplicationTriggerHandler
 
+↓
+
 ApplicationService
+
+↓
+
+If Status = Selected
+
+↓
+
+OfferProcessingJob (Queueable)
+
+↓
 
 NotificationService
 
+↓
+
 StatisticsService
 
 ---
+
+## Batch Processing
+
+- PlacementBatch processes Application records in batches.
+- Uses `start()`, `execute()`, and `finish()` methods.
+- Demonstrates processing of large datasets efficiently.
+
+---
+
+## Scheduled Apex
+
+- PlacementScheduler schedules PlacementBatch automatically.
+- Executes batch processing at scheduled intervals.
+- Automates background processing without user intervention.
+
+---
+
+## Bulkification
+
+- Bulkified SOQL Queries
+- Bulkified DML Operations
+- No SOQL inside loops
+- No DML inside loops
+- Uses Trigger.new and Trigger.oldMap
+- Bulk-safe Trigger Design
+
+---
+
+## Governor Limits
+
+- Optimized SOQL usage
+- Optimized DML operations
+- Queueable Apex for asynchronous processing
+- Batch Apex for large-volume processing
+- Scheduled Apex for automated execution
+
+---
+
+## Testing
+
+- Application Status Update
+- Queueable Apex Execution
+- Batch Apex Execution
+- Scheduled Apex Execution
+- Debug Log Verification
+- Bulk Record Processing
+
+---
+
