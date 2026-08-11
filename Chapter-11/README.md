@@ -1,75 +1,82 @@
-# Sprint 11 – Salesforce API Integration & External Recruitment System
+# Sprint 11 – Salesforce Integration: External Recruitment Gateway
 
-## Placement Management System
+## Business Problem
 
-A Salesforce-based Placement Management System that integrates with an external recruitment API to synchronize selected candidates.
+The Placement Management System needs to communicate with an external recruitment platform. When a student's Application is marked as **Selected**, Salesforce sends the candidate information to the external recruitment API automatically.
 
-This sprint demonstrates how Salesforce can communicate securely with an external REST API using:
+The integration allows Salesforce to send selected candidate details without requiring the user to wait for the external system.
 
-- Apex HTTP Callouts
-- Queueable Apex
-- Named Credentials
-- External Credentials
-- REST APIs
-- JSON
-- Integration Status Tracking
-- Error Handling
-- Retry Thinking
-- Idempotency
-- Asynchronous Integration
+## Objectives
 
----
+- Understand REST APIs and HTTP methods.
+- Send JSON data from Salesforce to an external API.
+- Use Queueable Apex for asynchronous processing.
+- Use Named Credentials instead of hard-coded credentials.
+- Handle successful and failed API responses.
+- Track integration status on the Application record.
+- Store the external candidate ID returned by the API.
+- Support retry handling for temporary server failures.
+- Understand idempotency and duplicate prevention.
+- Document the integration architecture.
 
-# 1. Business Problem
+## Integration Architecture
 
-The Placement Management System stores students, jobs, and applications inside Salesforce.
+Application Status = Selected  
+↓  
+Queueable Apex  
+↓  
+CandidateSyncQueueable  
+↓  
+Named Credential  
+↓  
+HTTP POST Request  
+↓  
+External Recruitment API  
+↓  
+HTTP Response  
+↓  
+Update Integration Status
 
-When a student is selected for a job, the external recruiting company also needs the candidate's information.
+## External System
 
-The requirement is:
+For this prototype, **JSONPlaceholder** is used as a mock external REST API.
 
-> When an Application becomes `Selected`, Salesforce should automatically send the candidate information to an external recruitment system.
+Endpoint:
 
-The student should not have to wait for the external API call to complete.
+`https://jsonplaceholder.typicode.com/posts`
 
-Therefore, the integration is implemented asynchronously using Queueable Apex.
+HTTP Method:
 
----
+`POST`
 
-# 2. Integration Architecture
+The mock API accepts JSON data and returns a simulated created record with an ID.
 
-The overall flow is:
+## API Contract
 
-```text
-                    Salesforce
-                        |
-                        |
-                 Application
-                        |
-                  Status = Selected
-                        |
-                        v
-                 Queueable Apex
-                        |
-                        v
-              CandidateSyncQueueable
-                        |
-                        v
-                 Named Credential
-                        |
-                        v
-                 REST API Callout
-                        |
-                        v
-          External Recruitment API
-                        |
-                        v
-                 JSON Response
-                        |
-                        v
-             Update Application
-                        |
-             +----------+----------+
-             |                     |
-             v                     v
-           Sent              Retry Required
+### Endpoint
+
+`POST /posts`
+
+### Full URL
+
+`https://jsonplaceholder.typicode.com/posts`
+
+### Request Headers
+
+`Content-Type: application/json`
+
+### Request Body
+
+```json
+{
+  "applicationId": "Salesforce Application Id",
+  "studentId": "Student Id",
+  "name": "Anusha",
+  "email": "student@example.com",
+  "department": "CSE",
+  "cgpa": 8.4,
+  "jobId": "Job Id",
+  "company": "Company Name",
+  "role": "Python Developer",
+  "selectionDate": "2026-08-11"
+}
