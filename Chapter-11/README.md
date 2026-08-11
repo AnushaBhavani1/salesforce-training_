@@ -1,38 +1,75 @@
-# Sprint 11 – Salesforce External Recruitment Integration
+# Sprint 11 – Salesforce API Integration & External Recruitment System
 
 ## Placement Management System
 
-### Overview
+A Salesforce-based Placement Management System that integrates with an external recruitment API to synchronize selected candidates.
 
-Sprint 11 extends the Placement Management System by connecting Salesforce with an external recruitment API.
+This sprint demonstrates how Salesforce can communicate securely with an external REST API using:
 
-When an Application is marked as **Selected**, Salesforce asynchronously sends the candidate information to an external recruitment system using a REST API.
-
-The integration uses:
-
+- Apex HTTP Callouts
 - Queueable Apex
-- HTTP Callouts
-- REST API
-- JSON
 - Named Credentials
 - External Credentials
-- Permission Sets
-- Integration status tracking
-- Error handling
+- REST APIs
+- JSON
+- Integration Status Tracking
+- Error Handling
+- Retry Thinking
+- Idempotency
+- Asynchronous Integration
 
 ---
 
 # 1. Business Problem
 
-The Placement Management System stores student applications and selection information inside Salesforce.
+The Placement Management System stores students, jobs, and applications inside Salesforce.
 
-However, recruiting companies may use their own recruitment platforms.
+When a student is selected for a job, the external recruiting company also needs the candidate's information.
 
-When a student is selected for a job, the placement team needs the candidate information to be sent automatically to the external recruitment system.
+The requirement is:
 
-### Business Requirement
+> When an Application becomes `Selected`, Salesforce should automatically send the candidate information to an external recruitment system.
 
-When:
+The student should not have to wait for the external API call to complete.
+
+Therefore, the integration is implemented asynchronously using Queueable Apex.
+
+---
+
+# 2. Integration Architecture
+
+The overall flow is:
 
 ```text
-Application Status = Selected
+                    Salesforce
+                        |
+                        |
+                 Application
+                        |
+                  Status = Selected
+                        |
+                        v
+                 Queueable Apex
+                        |
+                        v
+              CandidateSyncQueueable
+                        |
+                        v
+                 Named Credential
+                        |
+                        v
+                 REST API Callout
+                        |
+                        v
+          External Recruitment API
+                        |
+                        v
+                 JSON Response
+                        |
+                        v
+             Update Application
+                        |
+             +----------+----------+
+             |                     |
+             v                     v
+           Sent              Retry Required
