@@ -1,0 +1,126 @@
+<template>
+
+    <lightning-card title="Student Profile">
+
+        <div class="slds-p-around_medium">
+
+            <!-- VIEW MODE -->
+            <template if:false={isEditing}>
+
+                <template if:true={student}>
+
+                    <div class="slds-box">
+
+                        <p class="slds-text-heading_medium">
+                            {studentName}
+                        </p>
+
+                        <p class="slds-m-top_small">
+                            <strong>Department:</strong>
+                            {department}
+                        </p>
+
+                        <p class="slds-m-top_small">
+                            <strong>CGPA:</strong>
+                            {cgpa}
+                        </p>
+
+                        <p class="slds-m-top_small">
+                            <strong>Active Backlogs:</strong>
+                            {activeBacklogs}
+                        </p>
+
+                        <div class="slds-m-top_medium">
+
+                            <lightning-button
+                                label="Edit Profile"
+                                variant="brand"
+                                onclick={handleEdit}>
+                            </lightning-button>
+
+                        </div>
+
+                    </div>
+
+                </template>
+
+            </template>
+
+
+            <!-- EDIT MODE -->
+            <template if:true={isEditing}>
+
+                <div class="slds-box">
+
+                    <lightning-input
+                        type="number"
+                        label="CGPA"
+                        value={editCgpa}
+                        min="0"
+                        max="10"
+                        step="0.01"
+                        onchange={handleCgpaChange}>
+                    </lightning-input>
+
+                    <lightning-input
+                        type="number"
+                        label="Active Backlogs"
+                        value={editBacklogs}
+                        min="0"
+                        onchange={handleBacklogsChange}
+                        class="slds-m-top_small">
+                    </lightning-input>
+
+                    <lightning-input
+                        label="Department"
+                        value={editDepartment}
+                        onchange={handleDepartmentChange}
+                        class="slds-m-top_small">
+                    </lightning-input>
+
+
+                    <div class="slds-m-top_medium">
+
+                        <lightning-button
+                            label="Save"
+                            variant="brand"
+                            onclick={handleSave}>
+                        </lightning-button>
+
+                        <lightning-button
+                            label="Cancel"
+                            onclick={handleCancel}
+                            class="slds-m-left_small">
+                        </lightning-button>
+
+                    </div>
+
+                </div>
+
+            </template>
+
+
+            <!-- SUCCESS -->
+            <template if:true={message}>
+
+                <div class="slds-notify slds-notify_alert slds-theme_success slds-m-top_medium">
+                    {message}
+                </div>
+
+            </template>
+
+
+            <!-- ERROR -->
+            <template if:true={error}>
+
+                <div class="slds-notify slds-notify_alert slds-theme_error slds-m-top_medium">
+                    {error}
+                </div>
+
+            </template>
+
+        </div>
+
+    </lightning-card>
+
+</template>

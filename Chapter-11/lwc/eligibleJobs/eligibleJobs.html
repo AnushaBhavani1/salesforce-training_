@@ -1,0 +1,122 @@
+<template>
+
+    <lightning-card title="Eligible Jobs">
+
+        <div class="slds-p-around_medium">
+
+            <!-- Success Message -->
+            <template if:true={message}>
+
+                <div class="slds-notify slds-notify_alert slds-theme_success slds-m-bottom_medium">
+
+                    {message}
+
+                </div>
+
+            </template>
+
+
+            <!-- Error Message -->
+            <template if:true={error}>
+
+                <div class="slds-notify slds-notify_alert slds-theme_error slds-m-bottom_medium">
+
+                    {error}
+
+                </div>
+
+            </template>
+
+
+            <!-- Jobs -->
+            <template if:true={jobs}>
+
+                <template for:each={jobs} for:item="job">
+
+                    <c-job-card
+                        key={job.Id}
+                        job={job}
+                        onviewdetails={handleViewDetails}
+                        onapply={handleApply}>
+                    </c-job-card>
+
+                </template>
+
+            </template>
+
+
+            <!-- Selected Job -->
+            <template if:true={selectedJob}>
+
+                <div class="slds-box slds-theme_shade slds-m-top_medium">
+
+                    <h2 class="slds-text-heading_large">
+                        Job Details
+                    </h2>
+
+                    <p class="slds-m-top_small">
+
+                        <strong>Job Name:</strong>
+
+                        {selectedJob.Name}
+
+                    </p>
+
+                    <p>
+
+                        <strong>Company:</strong>
+
+                        {selectedJob.Company_Name__c}
+
+                    </p>
+
+                    <p>
+
+                        <strong>Package:</strong>
+
+                        {selectedJob.Package__c}
+
+                    </p>
+
+                    <p>
+
+                        <strong>Deadline:</strong>
+
+                        {selectedJob.Last_Date__c}
+
+                    </p>
+
+                    <p>
+
+                        <strong>Minimum CGPA:</strong>
+
+                        {selectedJob.Minimum_CGPA__c}
+
+                    </p>
+
+                    <p>
+
+                        <strong>Eligible Branch:</strong>
+
+                        {selectedJob.Eligible_Branch__c}
+
+                    </p>
+
+                    <p>
+
+                        <strong>Allowed Backlogs:</strong>
+
+                        {selectedJob.Allowed_Backlogs__c}
+
+                    </p>
+
+                </div>
+
+            </template>
+
+
+        </div>
+
+    </lightning-card>
+
+</template>

@@ -1,0 +1,87 @@
+<template>
+
+    <lightning-card title="My Applications">
+
+        <div class="slds-p-around_medium">
+
+            <template if:true={isLoading}>
+                <lightning-spinner
+                    alternative-text="Loading applications">
+                </lightning-spinner>
+            </template>
+
+            <template if:true={error}>
+                <div class="slds-text-color_error slds-m-bottom_medium">
+                    {error}
+                </div>
+            </template>
+
+            <template if:true={hasApplications}>
+
+                <template
+                    for:each={applications}
+                    for:item="application">
+
+                    <div
+                        key={application.Id}
+                        class="slds-box slds-m-bottom_medium">
+
+                        <h2 class="slds-text-heading_medium">
+                            {application.Job__r.Name}
+                        </h2>
+
+                        <p>
+                            <strong>Company:</strong>
+                            {application.Job__r.Company_Name__c}
+                        </p>
+
+                        <p>
+                            <strong>Package:</strong>
+                            {application.Job__r.Package__c}
+                        </p>
+
+                        <p>
+                            <strong>Application Date:</strong>
+                            {application.Application_Date__c}
+                        </p>
+
+                        <p>
+                            <strong>Status:</strong>
+                            {application.Status__c}
+                        </p>
+
+                    </div>
+
+                </template>
+
+            </template>
+
+            <template if:false={hasApplications}>
+
+                <template if:false={isLoading}>
+
+                    <div class="slds-align_absolute-center slds-p-around_large">
+
+                        <div class="slds-text-align_center">
+
+                            <h2 class="slds-text-heading_medium">
+                                No Applications
+                            </h2>
+
+                            <p class="slds-m-top_small">
+                                You have not applied for any jobs yet.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </template>
+
+            </template>
+
+        </div>
+
+    </lightning-card>
+
+</template>
